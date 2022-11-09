@@ -1,0 +1,15 @@
+version: "3"
+services:
+  ns:
+    container_name: ns2
+    image: ekiourk/ns2
+    volumes:
+      - ./:/code
+    stdin_open: true
+    tty: true
+    environment:
+      - DISPLAY=host.docker.internal:0
+    working_dir: /code
+    command: bash
+    
+# xhost + 127.0.0.1
