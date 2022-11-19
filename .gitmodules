@@ -1,0 +1,5 @@
+[submodule "tp4-projet-ns2"]
+	path = tp4-projet-ns2
+	url = git@git.unistra.fr:nderousseaux/projet-ns2.git
+	ignore = dirty
+	
