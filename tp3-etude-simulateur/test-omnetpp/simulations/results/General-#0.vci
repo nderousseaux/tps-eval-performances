@@ -1,0 +1,851 @@
+file 152770 1669367350                                          
+version 3
+run General-0-20221125-10:08:38-61273
+attr configname General
+attr datetime 20221125-10:08:38
+attr datetimef 20221125-100838
+attr experiment General
+attr inifile omnetpp.ini
+attr iterationvars ""
+attr iterationvarsd ""
+attr iterationvarsf ""
+attr measurement ""
+attr network Ethernet
+attr processid 61273
+attr repetition 0
+attr replication #0
+attr resultdir results
+attr runnumber 0
+attr seedset 0
+config image-path ../../inet4.4/images
+config network Ethernet
+config sim-time-limit 10s
+config **.s0.cli.destAddress "\"s1\""
+config **.s1.cli.destAddress "\"s0\""
+config **.cli.sendInterval exponential(1s)
+config **.cli.reqLength "intuniform(50, 1400)*1B"
+config **.cli.respLength "intWithUnit(truncnormal(3000B, 3000B))"
+config **.s2.cli.destAddress "\"s3\""
+config **.s3.cli.destAddress "\"s2\""
+config **.cli.sendInterval exponential(1s)
+config **.cli.reqLength "intuniform(50, 1400)*1B"
+config **.cli.respLength "intWithUnit(truncnormal(3000B, 3000B))"
+config **.s4.cli.destAddress "\"s5\""
+config **.s5.cli.destAddress "\"s4\""
+config **.cli.sendInterval exponential(1s)
+config **.cli.reqLength "intuniform(50, 1400)*1B"
+config **.cli.respLength "intWithUnit(truncnormal(3000B, 3000B))"
+
+vector 0 Ethernet.s0.cli packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 1 Ethernet.s0.encap encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 2 Ethernet.s0.eth.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 3 Ethernet.s0.eth.queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 4 Ethernet.s0.eth.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 5 Ethernet.s0.eth.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 6 Ethernet.s0.eth.queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 7 Ethernet.s0.eth.mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 8 Ethernet.s0.eth.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 9 Ethernet.s0.eth.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 10 Ethernet.ethernetHub packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets, packetBytes"
+vector 11 Ethernet.s0.eth.mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 12 Ethernet.s1.eth.mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 13 Ethernet.s1.eth.mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 14 Ethernet.s5.eth.mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 15 Ethernet.s4.eth.mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 16 Ethernet.s3.eth.mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 17 Ethernet.s2.eth.mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 18 Ethernet.s1.encap decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 19 Ethernet.s1.srv packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 20 Ethernet.s1.srv endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 21 Ethernet.s1.srv packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 22 Ethernet.s1.encap encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 23 Ethernet.s1.eth.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 24 Ethernet.s1.eth.queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 25 Ethernet.s1.eth.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 26 Ethernet.s1.eth.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 27 Ethernet.s1.eth.queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 28 Ethernet.s1.eth.mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 29 Ethernet.s1.eth.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 30 Ethernet.s1.eth.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 31 Ethernet.s1.eth.mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 32 Ethernet.s0.eth.mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 33 Ethernet.s0.eth.mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 34 Ethernet.s0.encap decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 35 Ethernet.s0.cli packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 36 Ethernet.s0.cli endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 37 Ethernet.s1.cli packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 38 Ethernet.s0.srv packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 39 Ethernet.s0.srv endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 40 Ethernet.s0.srv packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 41 Ethernet.s1.cli packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 42 Ethernet.s1.cli endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 43 Ethernet.s4.cli packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 44 Ethernet.s4.encap encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 45 Ethernet.s4.eth.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 46 Ethernet.s4.eth.queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 47 Ethernet.s4.eth.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 48 Ethernet.s4.eth.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 49 Ethernet.s4.eth.queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 50 Ethernet.s4.eth.mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 51 Ethernet.s4.eth.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 52 Ethernet.s4.eth.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 53 Ethernet.s4.eth.mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 54 Ethernet.s1.eth.mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 55 Ethernet.s0.eth.mac packetDropNotAddressedToUs:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetDropReasonIsNotAddressedToUs(packetDropped)
+attr title "packet drop: not addressed to us, packetBytes"
+vector 56 Ethernet.s5.eth.mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 57 Ethernet.s5.eth.mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 58 Ethernet.s5.encap decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 59 Ethernet.s5.srv packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 60 Ethernet.s5.srv endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 61 Ethernet.s5.srv packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 62 Ethernet.s5.encap encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 63 Ethernet.s5.eth.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 64 Ethernet.s5.eth.queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 65 Ethernet.s5.eth.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 66 Ethernet.s5.eth.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 67 Ethernet.s5.eth.queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 68 Ethernet.s5.eth.mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 69 Ethernet.s5.eth.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 70 Ethernet.s5.eth.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 71 Ethernet.s5.eth.mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 72 Ethernet.s4.eth.mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 73 Ethernet.s4.eth.mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 74 Ethernet.s4.encap decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 75 Ethernet.s4.cli packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 76 Ethernet.s4.cli endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 77 Ethernet.s2.cli packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 78 Ethernet.s2.encap encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 79 Ethernet.s2.eth.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 80 Ethernet.s2.eth.queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 81 Ethernet.s2.eth.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 82 Ethernet.s2.eth.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 83 Ethernet.s2.eth.queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 84 Ethernet.s2.eth.mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 85 Ethernet.s2.eth.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 86 Ethernet.s2.eth.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 87 Ethernet.s2.eth.mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 88 Ethernet.s3.eth.mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 89 Ethernet.s3.eth.mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 90 Ethernet.s3.encap decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 91 Ethernet.s3.srv packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 92 Ethernet.s3.srv endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 93 Ethernet.s3.srv packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 94 Ethernet.s3.encap encapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source encapPk
+attr title "packets encapsulated, packetBytes"
+vector 95 Ethernet.s3.eth.queue incomingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPushStarted)
+attr title "incoming packet lengths"
+attr unit b
+vector 96 Ethernet.s3.eth.queue incomingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPushStarted)
+attr title "incoming datarate"
+attr unit bps
+vector 97 Ethernet.s3.eth.queue queueingTime:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source queueingTime(packetPulled)
+attr title "queueing times"
+attr unit s
+vector 98 Ethernet.s3.eth.queue outgoingPacketLengths:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source packetLength(packetPulled)
+attr title "outgoing packet lengths"
+attr unit b
+vector 99 Ethernet.s3.eth.queue outgoingDataRate:vector ETV
+attr interpolationmode linear
+attr recordingmode vector
+attr source throughput(packetPulled)
+attr title "outgoing datarate"
+attr unit bps
+vector 100 Ethernet.s3.eth.mac packetReceivedFromUpper:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceivedFromUpper
+attr title "packet bytes from higher layer, packetBytes"
+vector 101 Ethernet.s3.eth.queue queueLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + count(packetPushStarted) - count(packetPulled) - count(packetRemoved) - count(packetDropped)))"
+attr title "queue length"
+attr unit pk
+vector 102 Ethernet.s3.eth.queue queueBitLength:vector ETV
+attr autoWarmupFilter false
+attr interpolationmode sample-hold
+attr recordingmode vector
+attr source "warmup(atomic(constant0(packetPushEnded) + sum(packetLength(packetPushStarted)) - sum(packetLength(packetPulled)) - sum(packetLength(packetRemoved)) - sum(packetLength(packetDropped))))"
+attr title "queue bit length"
+attr unit b
+vector 103 Ethernet.s3.eth.mac txPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToLower
+attr title "packets transmitted, packetBytes"
+vector 104 Ethernet.s2.eth.mac rxPkOk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source rxPkOk
+attr title "packets received OK, packetBytes"
+vector 105 Ethernet.s2.eth.mac passedUpPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSentToUpper
+attr title "packets passed to higher layer, packetBytes"
+vector 106 Ethernet.s2.encap decapPk:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source decapPk
+attr title "packets decapsulated, packetBytes"
+vector 107 Ethernet.s2.cli packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 108 Ethernet.s2.cli endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 109 Ethernet.s3.cli packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 110 Ethernet.s2.srv packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 111 Ethernet.s2.srv endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 112 Ethernet.s2.srv packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 113 Ethernet.s3.cli packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 114 Ethernet.s3.cli endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 115 Ethernet.s5.cli packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 116 Ethernet.s4.srv packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 117 Ethernet.s4.srv endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 118 Ethernet.s4.srv packetSent:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetSent
+attr title "packets sent, packetBytes"
+vector 119 Ethernet.s5.cli packetReceived:vector(packetBytes) ETV
+attr interpolationmode none
+attr recordingmode vector(packetBytes)
+attr source packetReceived
+attr title "packets received, packetBytes"
+vector 120 Ethernet.s5.cli endToEndDelay:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr source dataAge(packetReceived)
+attr title "end-to-end delay"
+attr unit s
+vector 121 Ethernet.s1.eth.mac collision:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title collision
+vector 122 Ethernet.s5.eth.mac collision:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title collision
+vector 123 Ethernet.s4.eth.mac collision:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title collision
+vector 124 Ethernet.s2.eth.mac collision:vector ETV
+attr interpolationmode none
+attr recordingmode vector
+attr title collision
+0	28272 204 7 3484 0.795874504566 7.951378560685 8 73 1258 6192 6103750
+1	28476 917 10 3718 0.795874504566 9.654279168605 35 76 1500 41747 57436539
+2	29393 948 11 3720 0.795874504566 9.654279168605 35 752 12144 339016 3772849344
+3	30341 1315 11 3754 0.1 10 100 0 737760 3390160 1777711584000
+4	31656 984 11 3737 0.795874504566 9.655509568605 35 0 0.0073824 0.0689024 0.00031488790528
+5	32640 953 11 3737 0.795874504566 9.655509568605 35 752 12144 339016 3772849344
+6	33593 1320 11 3754 0.1 10 100 0 737760 3390160 1631284089600
+7	34913 923 11 3737 0.795874504566 9.655509568605 35 94 1518 42377 58950771
+8	35836 1297 11 3737 0.795874504566 9.655509568605 55 0 6 92 324
+9	37133 1428 11 3737 0.795874504566 9.655509568605 55 0 61632 1013776 41130609920
+10	38561 5335 12 3738 0.795874554566 9.655509618605 195 102 1526 226570 307084286
+11	43896 958 18 3744 0.796764104566 9.656384768605 35 94 1518 42377 58950771
+12	44854 930 19 3745 0.796764204566 9.656384868605 34 94 1518 41098 57314930
+13	45784 930 19 3745 0.796764204566 9.656384868605 34 94 1518 41098 57314930
+14	46714 3145 20 3746 0.796764204566 9.656384868605 115 94 1518 135029 183939459
+15	49859 3145 21 3747 0.796764204566 9.656384868605 115 94 1518 135029 183939459
+16	53004 3687 22 3748 0.796764204566 9.656384868605 135 94 1518 152690 203473384
+17	56691 3659 23 3749 0.796764204566 9.656384868605 134 94 1518 151411 201837543
+18	60350 929 24 3750 0.796764204566 9.656384868605 34 76 1500 40486 55846418
+19	61279 185 26 3502 0.796764204566 7.951678660685 7 73 1217 4934 4521186
+20	61464 225 26 3502 0.796764204566 7.951678660685 7 8.17e-05 0.0009969 0.0041103 3.08129879e-06
+21	61689 407 26 3502 0.796764204566 7.951678660685 15 125 1497 17007 22571767
+22	62096 595 28 3698 0.796764204566 9.653616668605 22 128 1500 22707 28027751
+23	62691 615 29 3699 0.796764204566 9.653616668605 22 1168 12144 184824 1846549184
+24	63306 1410 29 3754 0.1 10 100 0 448480 1848240 507899052800
+25	64716 603 29 3699 0.796764204566 9.653616668605 22 0 0.0036912 0.018456 4.995817728e-05
+26	65319 615 29 3699 0.796764204566 9.653616668605 22 1168 12144 184824 1846549184
+27	65934 1410 29 3754 0.1 10 100 0 448480 1848240 507899052800
+28	67344 595 29 3699 0.796764204566 9.653616668605 22 146 1518 23103 28852331
+29	67939 736 29 3699 0.796764204566 9.653616668605 30 0 3 22 44
+30	68675 785 29 3699 0.796764204566 9.653616668605 30 0 32704 218096 4739131136
+31	69460 595 37 3706 0.797145804566 9.654279068605 22 146 1518 23103 28852331
+32	70055 595 38 3707 0.797145904566 9.654279168605 22 146 1518 23103 28852331
+33	70650 595 38 3707 0.797145904566 9.654279168605 22 146 1518 23103 28852331
+34	71245 595 43 3712 0.797145904566 9.654279168605 22 128 1500 22707 28027751
+35	71840 407 45 3521 0.797145904566 7.952082760685 15 125 1497 17007 22571767
+36	72247 487 45 3521 0.797145904566 7.952082760685 15 0.0003817 0.0045393 0.0324111 9.803649551e-05
+37	72734 188 47 3696 0.898560388484 9.653616668605 7 374 1366 5634 5319940
+38	72922 188 66 3714 0.899102888484 9.654279168605 7 374 1366 5634 5319940
+39	73110 228 66 3714 0.899102888484 9.654279168605 7 0.0003225 0.0011161 0.0046703 3.61859735e-06
+40	73338 739 66 3714 0.899102888484 9.654279168605 27 93 1497 35450 51082622
+41	74077 745 100 3752 0.900323788484 9.656384868605 27 93 1497 35450 51082622
+42	74822 884 100 3752 0.900323788484 9.656384868605 27 0.0002713 0.0074801 0.0978915 0.00049170050795
+43	75706 269 182 3600 0.923223131471 8.639804337414 10 107 1054 5166 3600424
+44	75975 953 185 3602 0.923223131471 8.639804337414 35 110 1500 36568 46921266
+45	76928 986 186 3603 0.923223131471 8.639804337414 35 1024 12144 297584 3087939456
+46	77914 1426 186 3754 0.1 10 100 0 493760 2975840 943177203200
+47	79340 991 186 3603 0.923223131471 8.639804337414 35 0 0.0036912 0.0344512 9.08330496e-05
+48	80331 986 186 3603 0.923223131471 8.639804337414 35 1024 12144 297584 3087939456
+49	81317 1426 186 3754 0.1 10 100 0 493760 2975840 943177203200
+50	82743 953 186 3603 0.923223131471 8.639804337414 35 128 1518 37198 48249054
+51	83696 1256 186 3603 0.923223131471 8.639804337414 51 0 3 40 80
+52	84952 1346 186 3603 0.923223131471 8.639804337414 51 0 35456 398448 8755795072
+53	86298 954 193 3610 0.923537531471 8.640670737414 35 128 1518 37198 48249054
+54	87252 3754 194 3687 0.923537631471 8.644684537414 137 128 1518 158038 213442480
+55	91006 3782 195 3688 0.923537631471 8.644684537414 138 128 1518 159530 215668544
+56	94788 954 196 3613 0.923537631471 8.640670837414 35 128 1518 37198 48249054
+57	95742 954 196 3613 0.923537631471 8.640670837414 35 128 1518 37198 48249054
+58	96696 954 199 3616 0.923537631471 8.640670837414 35 110 1500 36568 46921266
+59	97650 269 201 3618 0.923537631471 8.640670837414 10 107 1054 5166 3600424
+60	97919 328 201 3618 0.923537631471 8.640670837414 10 0.0001089 0.0008665 0.0043658 2.50228874e-06
+61	98247 938 201 3618 0.923537631471 8.640670837414 34 250 1497 43257 60520749
+62	99185 1180 205 3626 0.923537631471 8.640670837414 43 147 1500 49238 65634728
+63	100365 1220 208 3630 0.923537631471 8.640670837414 43 1320 12144 400096 4314958592
+64	101585 1427 208 3754 0.1 10 100 0 871760 4000960 1861847283200
+65	103012 1257 208 3679 0.923537631471 8.644362037414 43 0 0.0086128 0.0713632 0.00031186013696
+66	104269 1220 208 3679 0.923537631471 8.644362037414 43 1320 12144 400096 4314958592
+67	105489 1427 208 3754 0.1 10 100 0 871760 4000960 1861847283200
+68	106916 1180 208 3679 0.923537631471 8.644362037414 43 165 1518 50012 67421228
+69	108096 1662 208 3679 0.923537631471 8.644362037414 67 0 7 92 320
+70	109758 1810 208 3679 0.923537631471 8.644362037414 67 0 75032 947744 37362808192
+71	111568 1180 218 3686 0.924758431471 8.644684437414 43 165 1518 50012 67421228
+72	112748 1180 221 3689 0.924758531471 8.644684537414 43 165 1518 50012 67421228
+73	113928 1180 221 3689 0.924758531471 8.644684537414 43 165 1518 50012 67421228
+74	115108 1180 224 3692 0.924758531471 8.644684537414 43 147 1500 49238 65634728
+75	116288 938 226 3694 0.924758531471 8.644684537414 34 250 1497 43257 60520749
+76	117226 1116 226 3694 0.924758531471 8.644684537414 34 0.0003889 0.0088361 0.106761 0.00048476761298
+77	118342 269 260 3523 1.255930758047 8.371359280827 10 137 1110 6798 5735342
+78	118611 461 263 3525 1.255930758047 8.371359280827 17 140 1500 16527 19669141
+79	119072 477 264 3526 1.255930758047 8.371359280827 17 1264 12144 134664 1297255744
+80	119549 1398 264 3754 0.1 10 100 0 426880 1346640 355332486400
+81	120947 460 264 3526 1.255930758047 8.371359280827 17 0 0.0036912 0.0110736 2.876379904e-05
+82	121407 477 264 3526 1.255930758047 8.371359280827 17 1264 12144 134664 1297255744
+83	121884 1398 264 3754 0.1 10 100 0 426880 1346640 355332486400
+84	123282 461 264 3526 1.255930758047 8.371359280827 17 158 1518 16833 20269621
+85	123743 543 264 3526 1.255930758047 8.371359280827 22 0 3 13 25
+86	124286 574 264 3526 1.255930758047 8.371359280827 22 0 30544 139168 2895529088
+87	124860 461 271 3533 1.256063558047 8.371782480827 17 158 1518 16833 20269621
+88	125321 461 276 3538 1.256063658047 8.371782580827 17 158 1518 16833 20269621
+89	125782 461 276 3538 1.256063658047 8.371782580827 17 158 1518 16833 20269621
+90	126243 461 277 3539 1.256063658047 8.371782580827 17 140 1500 16527 19669141
+91	126704 269 279 3541 1.256063658047 8.371782580827 10 137 1110 6798 5735342
+92	126973 328 279 3541 1.256063658047 8.371782580827 10 0.0001329 0.0009113 0.0056714 3.92947722e-06
+93	127301 1134 279 3541 1.256063658047 8.371782580827 41 112 1497 53730 76915204
+94	128435 1187 284 3547 1.256063658047 8.371782580827 43 115 1500 54713 77745041
+95	129622 1229 288 3550 1.256063658047 8.371782580827 43 1064 12144 443896 5102633024
+96	130851 1405 288 3754 0.1 10 100 0 1379760 4438960 3308890809600
+97	132256 1312 288 3583 1.256063658047 8.374243380827 43 0 0.0073824 0.1008928 0.0004390264064
+98	133568 1229 288 3583 1.256063658047 8.374243380827 43 1064 12144 443896 5102633024
+99	134797 1405 288 3754 0.1 10 100 0 1379760 4438960 3308890809600
+100	136202 1230 288 3583 1.256063658047 8.374243380827 43 133 1518 55487 79728641
+101	137432 1911 288 3583 1.256063658047 8.374243380827 74 0 6 133 447
+102	139343 2115 288 3583 1.256063658047 8.374243380827 74 0 62432 1381712 51458195072
+103	141458 1230 299 3590 1.257284458047 8.374847380827 43 133 1518 55487 79728641
+104	142688 1201 304 3595 1.257284558047 8.374847480827 42 133 1518 53995 77502577
+105	143889 1201 304 3595 1.257284558047 8.374847480827 42 133 1518 53995 77502577
+106	145090 1201 305 3596 1.257284558047 8.374847480827 42 115 1500 53239 75572365
+107	146291 1146 307 3598 1.257284558047 8.374847480827 40 112 1497 52259 74751363
+108	147437 1353 307 3598 1.257284558047 8.374847480827 40 0.0012209 0.0075601 0.143632 0.00067775233368
+109	148790 55 453 1611 1.859604212075 5.009774140751 2 165 689 854 501946
+110	148845 55 472 1629 1.859759512075 5.010348640751 2 165 689 854 501946
+111	148900 67 472 1629 1.859759512075 5.010348640751 2 0.0001553 0.0005745 0.0007298 3.5416834e-07
+112	148967 199 472 1629 1.859759512075 5.010348640751 7 761 1497 9678 13834790
+113	149166 199 497 1705 1.860980412075 5.014671940751 7 761 1497 9678 13834790
+114	149365 235 497 1705 1.860980412075 5.014671940751 7 0.0012209 0.0043233 0.0189791 6.041949687e-05
+115	149600 251 531 3426 1.951545335884 7.823895272489 9 144 1154 5852 4818938
+116	149851 251 550 3444 1.951967035884 7.824033772489 9 144 1154 5852 4818938
+117	150102 303 550 3444 1.951967035884 7.824033772489 9 0.0001385 0.0009465 0.0048913 3.30716889e-06
+118	150405 709 550 3444 1.951967035884 7.824033772489 25 199 1497 31297 43101749
+119	151114 710 578 3482 1.953187935884 7.825553072489 25 199 1497 31297 43101749
+120	151824 841 578 3482 1.953187935884 7.825553072489 25 0.0007057 0.0048145 0.0600713 0.00018223569657
+121	152665 26 3353 3353 7.489647764641 7.489647764641 1 1 1 1 1
+122	152691 26 3354 3354 7.489647764641 7.489647764641 1 1 1 1 1
+123	152717 26 3355 3355 7.489647764641 7.489647764641 1 1 1 1 1
+124	152743 26 3357 3357 7.489647764641 7.489647764641 1 1 1 1 1
+
